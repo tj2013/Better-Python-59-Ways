@@ -53,6 +53,12 @@ for name, count in zip(names, letters):
         longest_name = name
         max_letters = count
 
+# 更简单的做法
+
+max(zip(names, letters), key = lambda x : x[1])
+
+# ('Cecilia', 7)
+# zip generate tuples
 
 # There are two problems with the zip built-in.
 
