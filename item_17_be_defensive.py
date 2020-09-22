@@ -67,6 +67,7 @@ print(list(it))
 # [15, 35, 80]
 # []
 
+# 不能iterate iterator multiple times!
 
 # What's confusing is that you also won't get any errors when you iterate over
 # an already exhausted iterator. for loops, the list constructor, and many
@@ -191,6 +192,17 @@ def normalize_defensive(numbers):
         result.append(percent)
     return result
 
+# if iter(numbers) is iter(numbers)
+# 是一个判断是否是iterator的技巧
+
+# 别的方法
+from collections.abc import Iterable, Iterator
+a = list(range(5))
+isinstance(a, Iterator) # return False
+isinstance(a, Iterable) # return True
+b = iter(a)
+isinstance(b, Iterator) # return True
+isinstance(b, Iterable) # return True
 
 # This is ideal if you don't want to copy the full input iterator like
 # normalize_copy above, but you also need to iterate over the input data
