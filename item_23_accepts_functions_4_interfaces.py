@@ -59,6 +59,12 @@ print('After:', dict(result))
 # Before: {'blue': 3, 'green': 12}
 # After: {'blue': 17, 'green': 12, 'red': 5, 'orange': 9}
 
+# Example of defaultdic
+# Using list as the default_factory, it is easy to group a sequence of key-value pairs into a dictionary of lists
+s = [('yellow', 1), ('blue', 2), ('yellow', 3), ('blue', 4), ('red', 1)]
+d = defaultdict(list)
+for k,v in s: d[k].append(v)
+# works like groupby    
 
 # Supplying functions like log_missing makes APIs easy to build and test
 # because it separates side effects from deterministic behavior. For example,
