@@ -212,6 +212,10 @@ assert Explicit(10).value == Implicit(10).value
 # self.__class__ as an argument to super, but this breaks because of the way
 # super is implemented in Python 2.
 
+# self.__class__ is a reference to the type of the current instance.
+class A(object): pass
+a = A()
+a.__class__ # result is <class '__main__.A'>
 
 # Things to remember
 
