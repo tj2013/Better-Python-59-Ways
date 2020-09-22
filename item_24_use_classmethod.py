@@ -179,6 +179,9 @@ class GenericInputData(object):
     def generate_inputs(cls, config):
         raise NotImplementedError
 
+# @classmethod的第一个参数总是class type of the current class (base class or 
+# subclass that inherit the method
+# different from @staticmethod
 
 # I have generate_inputs take a dictionary with a set of configuration
 # parameters that are up to the InputData concrete subclass to interpret.
