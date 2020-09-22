@@ -207,6 +207,12 @@ print(average_grade)
 
 Grade = collections.namedtuple('Grade', ('score', 'weight'))
 
+g = namedtuple('Grade', ('score', 'weight'))
+type(g) # result is <class 'type'>
+
+g1 = g(score=10, weight=50)
+print(g1) # result is Grade(score=10, weight=50)
+type(g1) # result is <class '__main__.Grade'>
 
 # These classes can be constructed with positional or keyword arguments. The
 # fields are accessible with named attributes. Having named attributes makes
