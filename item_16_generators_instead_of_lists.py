@@ -98,6 +98,8 @@ with open('item_16_address.txt', 'r') as f:
     print(list(results))
 # [0, 5, 11]
 
+# Normal slice such as a[1:2] only work on sequences (list, tuple) but not on 
+# iterators. And index_file returns iterator.
 
 # The only gotcha of defining generators like this is that the callers must be
 # aware that the iterators returned are stateful and can't be reused (see
