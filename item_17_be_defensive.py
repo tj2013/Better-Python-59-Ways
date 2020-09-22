@@ -196,6 +196,8 @@ def normalize_defensive(numbers):
 # 是一个判断是否是iterator的技巧
 
 # 别的方法
+# Module collections.abc provides abstract base classes that can be used to test whether a 
+# class provides a particular interface
 from collections.abc import Iterable, Iterator
 a = list(range(5))
 isinstance(a, Iterator) # return False
