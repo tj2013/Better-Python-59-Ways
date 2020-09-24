@@ -25,7 +25,21 @@ class FrequencyList(list):
             counts[item] += 1
         return counts
 
+# Another implementation
+    def frequency(self):
+         counts=defaultdict(int)
+         for item in self:
+             counts[item] += 1
+         return counts
+# defaultdict is dict
 
+# Another implemenation        
+    def frequency(self):
+        counts={}
+        for item in self:
+            counts[item] = counts.get(item,0)+1
+        return counts
+    
 # By subclassing list, you get all of list's standard functionality and
 # preserve the semantics familiar to all Python programmers. Your additional
 # methods can add any custom behaviors you need.
