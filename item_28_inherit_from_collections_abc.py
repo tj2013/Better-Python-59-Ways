@@ -198,6 +198,8 @@ foo = BadType()
 # as I did above with SequenceNode, it will provide all of the additional
 # methods like index and count for free.
 
+# Sequence will allow you mixin __contains__, __iter__, __reversed__, index, and count
+# and you need to implement abstract methods __getitem__, __len__
 
 class BetterNode(SequenceNode, Sequence):
     pass
