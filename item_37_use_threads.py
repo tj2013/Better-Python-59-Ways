@@ -37,6 +37,9 @@ def factorize(number):
 
 # Factoring a set of numbers in serial takes quite a long time.
 
+a = list(factorize(100)) # result [1, 2, 4, 5, 10, 20, 25, 50, 100]
+# this is not factorize, this is finding divisor
+    
 numbers = [2139079, 1214759, 1516637, 1852285]
 start = time.time()
 for number in numbers:
