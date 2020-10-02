@@ -84,6 +84,52 @@ print('Equal?', a == b)
 # {'foo': 1, 'bar': 2}
 # {'bar': 2, 'foo': 1}
 # Equal? True
+# 这两个dict其实是相等的，但是由于iterate的顺序不同，它们的__str__()结果也不同
+
+"""
+Python dictionaries are implemented as hash tables.
+Hash tables must allow for hash collisions i.e. even if two keys have same hash value, the implementation of the table must have a strategy to insert and 
+retrieve the key and value pairs unambiguously.
+Python dict uses open addressing to resolve hash collisions (explained below) (see dictobject.c:296-297).
+Python hash table is just a continguous block of memory (sort of like an array, so you can do O(1) lookup by index).
+Each slot in the table can store one and only one entry. This is important.
+Each entry in the table actually a combination of the three values - . This is implemented as a C struct (see dictobject.h:51-56)
+The figure below is a logical representation of a python hash table. In the figure below, 0, 1, ..., i, ... on the left are indices of the slots 
+in the hash table (they are just for illustrative purposes and are not stored along with the table obviously!).
+
+Logical model of Python Hash table
+-+-----------------+
+0| <hash|key|value>|
+-+-----------------+
+1|      ...        |
+-+-----------------+
+.|      ...        |
+-+-----------------+
+i|      ...        |
+-+-----------------+
+.|      ...        |
+-+-----------------+
+n|      ...        |
+-+-----------------+
+When a new dict is initialized it starts with 8 slots. (see dictobject.h:49)
+
+When adding entries to the table, we start with some slot, i that is based on the hash of the key. CPython uses initial i = hash(key) & mask. 
+Where mask = PyDictMINSIZE - 1, but that's not really important). Just note that the initial slot, i, that is checked depends on the hash of the key.
+If that slot is empty, the entry is added to the slot (by entry, I mean, <hash|key|value>). But what if that slot is occupied!? 
+Most likely because another entry has the same hash (hash collision!)
+If the slot is occupied, CPython (and even PyPy) compares the the hash AND the key (by compare I mean == comparison not the is comparison) of the entry 
+in the slot against the key of the current entry to be inserted (dictobject.c:337,344-345). If both match, then it thinks the entry already exists. 
+If either hash or the key don't match, it starts probing.
+Probing just means it searches the slots by slot to find an empty slot. Technically we could just go one by one, i+1, i+2, ... and use the first available
+one (that's linear probing). But for reasons explained beautifully in the comments (see dictobject.c:33-126), CPython uses random probing. 
+In random probing, the next slot is picked in a pseudo random order. The entry is added to the first empty slot. 
+For this discussion, the actual algorithm used to pick the next slot is not really important (see dictobject.c:33-126 for the algorithm for probing). 
+What is important is that the slots are probed until first empty slot is found.
+The same thing happens for lookups, just starts with the initial slot i (where i depends on the hash of the key). 
+If the hash and the key both don't match the entry in the slot, it starts probing, until it finds a slot with a match. 
+If all slots are exhausted, it reports a fail.
+BTW, the dict will be resized if it is two-thirds full. This avoids slowing down lookups. (see dictobject.h:64-65)
+"""
 
 # The OrderedDict class from the collections module is a special type of
 # dictionary that keeps track of the order in which its keys were inserted.
